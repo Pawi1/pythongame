@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        input[type="button"],
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover,
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        pre {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+
+        h2.error {
+            color: #d9534f;
+        }
+
+        p.error {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Wprowadź komendę</h2>
+    <form method="post" action="{% url 'execute_command' %}">
+        {% csrf_token %}
+        <label for="command">Kod:</label>
+        <br>
+        <textarea id="command" name="command" rows="10" cols="50"></textarea>
+        <br>
+        <input type="button" value="Wyczyść" onclick="clearResults()">
+        <input type="submit" value="Wykonaj">
+    </form>
+    <div id="result">
+        {% if result %}
+            <h2>Wynik:</h2>
+            <pre>{{ result }}</pre>
+        {% endif %}
+
+        {% if error_message %}
+            <h2 class="error">Błąd:</h2>
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function clearResults() {
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</body>
+</html>
