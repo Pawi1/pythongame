@@ -8,7 +8,6 @@ idna
 jbxapi
 pip
 pycryptodomex
-pycurl
 pyparsing
 PySimpleSOAP
 pytz
