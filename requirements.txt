@@ -18,6 +18,5 @@ setuptools
 six
 sqlparse
 urllib3
-wheel
 xmltodict
 reportbug
