@@ -4,6 +4,10 @@ import sys
 from .forms import CommandForm
 from io import StringIO
 from resource import setrlimit,RLIMIT_CPU
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
 def execute_command(request):
     if request.method == 'POST':
         form = CommandForm(request.POST)
