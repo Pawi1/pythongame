@@ -81,6 +81,7 @@
         <textarea id="command" name="command" rows="10" cols="50"></textarea>
         <br>
         <input type="button" value="Wyczyść" onclick="clearResults()">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <input type="submit" value="Wykonaj">
     </form>
     <div id="result">
