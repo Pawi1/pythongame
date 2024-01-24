@@ -15,6 +15,10 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
+=======
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+>>>>>>> parent of b87505e (Fix css file x10)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -23,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-eaab^l6bj_ffz2!5xrdhj9a$l_0awpwg_x@6wis!u!n2178x7c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['pythongame.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['pythongame.azurewebsites.net']
 
 
 # Application definition
@@ -47,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.staticfiles.middleware.StaticFilesMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -121,7 +126,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
+<<<<<<< HEAD
     # BASE_DIR / 'gra/static',
+=======
+    BASE_DIR / 'static',
+>>>>>>> parent of b87505e (Fix css file x10)
 ]
 
 # Default primary key field type
