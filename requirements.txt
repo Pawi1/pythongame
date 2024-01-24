@@ -19,3 +19,4 @@ sqlparse
 urllib3
 xmltodict
 reportbug
+whitenoise
