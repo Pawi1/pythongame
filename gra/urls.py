@@ -19,6 +19,6 @@ from django.conf import settings
 from django.urls import path
 
 urlpatterns = [
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
     path('', execute_command, name='execute_command'),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]
