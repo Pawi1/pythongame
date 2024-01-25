@@ -7,6 +7,7 @@
 - [ ] Dodanie obsługi Codemirror 
 - [ ] Napisanie szablonu ( ludzik, gotowy codemirror, bootstrap(?) )
 - [ ] Wymyślenie zadań
+- [x] Wymyślnenie fabuły, myśle że nw coś związanego z kosmosem, nw latasz statkiem kosmicznym i tam robisz różne zadania
 - [ ] Back-end: sprawdzanie poprawności zadań danych przez usera
 - [ ] Zapisywanie postępu w plikach cookies
 
