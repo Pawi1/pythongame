@@ -5,13 +5,15 @@ from .forms import CommandForm
 from io import StringIO
 from resource import setrlimit,RLIMIT_CPU
 from django.views.decorators.csrf import csrf_exempt
-
+from django.http import HttpResponseRedirect
 
 @csrf_exempt
 def execute_command(request):
     if request.method == 'POST':
         form = CommandForm(request.POST)
-        if form.is_valid():
+        if 'clear_button' in request.POST:
+            return render(request, 'execute_command.html', {'form': form})
+        elif form.is_valid():
             command = form.cleaned_data['command']
             try:
                 parsed_command = ast.parse(command, mode='exec')

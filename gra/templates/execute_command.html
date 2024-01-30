@@ -12,35 +12,49 @@
     <script src="{% static 'codemirror/python.js' %}"></script>
 </head>
 <body>
+<div class="container">
+<div class="row gy-4 m-3">
+{% if result or error_message %}
+    <div class="col-md-7 col-sm-12 border p-3">
+{% else %}
+        <div class="col-12 border p-3">
+{% endif%}
     <h2>Wprowadź kod:</h2>
     <form method="post" action="{% url 'execute_command' %}">
         {% csrf_token %}
         <textarea id="command" name="command" class="form">{{ command }}</textarea>
         <br>
         <input type="submit" class="btn btn-success" value="Wykonaj">
-        <input type="button" class="btn btn-secondary" value="Wyczyść" onclick="clearResults()">
+        <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="form_source" value="" id="formSourceField">
     </form>
-    <div id="result">
+</div>
+{% if result or error_message %}    
+<div class="col-md-5 col-sm-12 border p-3">
+    <div id="output">
         {% if result %}
         <h2>Wynik:</h2>
-        <pre>{{ result }}</pre>
+        <textarea id="result">{{ result }}</textarea>
         {% endif %}
         
         {% if error_message %}
-        <h2 class="error">Błąd:</h2>
-        <p class="error">{{ error_message }}</p>
+        <h2 class="text-danger">Błąd:</h2>
+        <textarea id="result">{{ error_message }}</textarea>
         {% endif %}
+        </div>
     </div>
-    
+{% endif %}
+</div>
+</div>
     <script>
-        function clearResults() {
-            document.getElementById("result").innerHTML = "";
-        }
         var editor = CodeMirror.fromTextArea(command, {
             lineNumbers: true,
             mode:  "python",
             theme: "panda-syntax"
+        });
+        var editor = CodeMirror.fromTextArea(result, {
+            readOnly: true,
         });
     </script>
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
