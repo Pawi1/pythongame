@@ -4,7 +4,7 @@
 - [x] Zabezpieczenie przed niebezpiecznym kodem od usera
 - [x] Hosting itp.
 - [x] Skonfigurowanie Django tak że działa i można pracować (dodatkowe pliki,html itp.)
-- [ ] Dodanie obsługi Codemirror 
+- [x] Dodanie obsługi Codemirror 
 - [ ] Napisanie szablonu ( ludzik, gotowy codemirror, bootstrap(?) )
 - [ ] Wymyślenie zadań
 - [x] Wymyślnenie fabuły, myśle że nw coś związanego z kosmosem, nw latasz statkiem kosmicznym i tam robisz różne zadania
