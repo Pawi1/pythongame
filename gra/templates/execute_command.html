@@ -7,8 +7,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/codemirror.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'codemirror/material-ocean.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'codemirror/material.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codemirror/panda-syntax.css' %}">
     <script src="{% static 'codemirror/codemirror.js' %}"></script>
     <script src="{% static 'codemirror/python.js' %}"></script>
 </head>
@@ -18,9 +17,9 @@
         {% csrf_token %}
         <textarea id="command" name="command" class="form">{{ command }}</textarea>
         <br>
-        <input type="button" value="Wyczyść" onclick="clearResults()">
+        <input type="submit" class="btn btn-success" value="Wykonaj">
+        <input type="button" class="btn btn-secondary" value="Wyczyść" onclick="clearResults()">
         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <input type="submit" value="Wykonaj">
     </form>
     <div id="result">
         {% if result %}
@@ -41,11 +40,10 @@
         var editor = CodeMirror.fromTextArea(command, {
             lineNumbers: true,
             mode:  "python",
-            theme: "material-ocean"
+            theme: "panda-syntax"
         });
     </script>
     <script src="{% static 'bootstrap/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/motyw.js' %}"></script>
     <script src="{% static 'bootstrap/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
     <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
