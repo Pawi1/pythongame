@@ -4,7 +4,7 @@
 - [x] Zabezpieczenie przed niebezpiecznym kodem od usera
 - [x] Hosting itp.
 - [x] Skonfigurowanie Django tak że działa i można pracować (dodatkowe pliki,html itp.)
-- [ ] Dodanie obsługi Codemirror 
+- [x] Dodanie obsługi Codemirror 
 - [ ] Napisanie szablonu (ludzik, gotowy codemirror, bootstrap(?) )
 - [ ] Wymyślenie zadań
 - [ ] Back-end: sprawdzanie poprawności zadań danych przez usera
