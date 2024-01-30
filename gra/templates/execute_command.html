@@ -13,50 +13,55 @@
 </head>
 <body>
 <div class="container">
-<div class="row gy-4 m-3">
-{% if result or error_message %}
-    <div class="col-md-7 col-sm-12 border p-3">
-{% else %}
-        <div class="col-12 border p-3">
-{% endif%}
-    <h2>Wprowadź kod:</h2>
-    <form method="post" action="{% url 'execute_command' %}">
-        {% csrf_token %}
-        <textarea id="command" name="command" class="form">{{ command }}</textarea>
-        <br>
-        <input type="submit" class="btn btn-success" value="Wykonaj">
-        <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
-        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-        <input type="hidden" name="form_source" value="" id="formSourceField">
-    </form>
-</div>
-{% if result or error_message %}    
-<div class="col-md-5 col-sm-12 border p-3">
-    <div id="output">
-        {% if result %}
-        <h2>Wynik:</h2>
-        <textarea id="result">{{ result }}</textarea>
-        {% endif %}
-        
-        {% if error_message %}
-        <h2 class="text-danger">Błąd:</h2>
-        <textarea id="result">{{ error_message }}</textarea>
-        {% endif %}
+    <div class="d-flex gy-2 m-2">
+        <div class="border p-3 flex-grow-1">
+            <h2>{{ title }}</h2>
+            <textarea id="content">{{ content }}</textarea>
+            <h4>Sprawdź czy twoja odp jest poprawna</h4>
+        </div>
+        <div class="d-flex flex-column w-50">
+            <div class="border p-3 flex-grow-1">    
+                <h2>Wprowadź kod:</h2>
+                <form method="post" action="{% url 'execute_command' %}">
+                    {% csrf_token %}
+                    <textarea id="command" name="command" class="form"></textarea>
+                    <br>
+                    <input type="submit" class="btn btn-success" value="Wykonaj">
+                    <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <input type="hidden" name="form_source" value="" id="formSourceField">
+                </form>
+            </div>             
+            {% if result or error_message %}    
+            <div id="output" class="border p-3 flex-grow-1">
+                {% if result %}
+                <h2>Wynik:</h2>
+                <textarea id="result">{{ result }}</textarea>
+                {% endif %}
+
+                {% if error_message %}
+                <h2 class="text-danger">Błąd:</h2>
+                <textarea id="result">{{ error_message }}</textarea>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
     </div>
-{% endif %}
 </div>
-</div>
-    <script>
-        var editor = CodeMirror.fromTextArea(command, {
-            lineNumbers: true,
-            mode:  "python",
-            theme: "panda-syntax"
-        });
-        var editor = CodeMirror.fromTextArea(result, {
-            readOnly: true,
-        });
-    </script>
-    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+<script>
+    var editor3 = CodeMirror.fromTextArea(content, {
+        mode: null
+    });
+    var editor = CodeMirror.fromTextArea(command, {
+        lineNumbers: true,
+        mode:  "python",
+        theme: "panda-syntax"
+    });
+    var editor2 = CodeMirror.fromTextArea(result, {
+        readOnly: true,
+        mode: null
+    });
+</script>
+<script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
 </body>
 </html>
