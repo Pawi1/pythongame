@@ -5,7 +5,7 @@
 - [x] Hosting itp.
 - [x] Skonfigurowanie Django tak że działa i można pracować (dodatkowe pliki,html itp.)
 - [x] Dodanie obsługi Codemirror 
-- [ ] Napisanie szablonu ( ludzik, gotowy codemirror, bootstrap(?) )
+- [x] Napisanie szablonu ( ludzik, gotowy codemirror, bootstrap(?) ) (częściowo)
 - [ ] Wymyślenie zadań
 - [ ] Back-end: sprawdzanie poprawności zadań danych przez usera
 - [ ] Zapisywanie postępu w plikach cookies
