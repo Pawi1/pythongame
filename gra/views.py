@@ -49,13 +49,13 @@ def execute_command(request):
                 setrlimit(RLIMIT_CPU,(15, 15))
                 exec(compiled_code, globals_parameter, locals_parameter)
                 sys.stdout = original_stdout
-                return render(request, 'execute_command.html', {'result': result_buffer.getvalue()})
+                return render(request, 'execute_command.html', {'result': result_buffer.getvalue(), 'command': command})
             except SyntaxError as e:
                 error_message = "Błąd składni: {}".format(str(e))
-                return render(request, 'execute_command.html', {'error_message': error_message})
+                return render(request, 'execute_command.html', {'error_message': error_message,'command': command})
             except Exception as e:
                 error_message = "Błąd: {}".format(str(e))
-                return render(request, 'execute_command.html', {'error_message': error_message})
+                return render(request, 'execute_command.html', {'error_message': error_message,'command': command})
     else:
         form = CommandForm()
     return render(request, 'execute_command.html', {'form': form})
