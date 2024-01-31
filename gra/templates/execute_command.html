@@ -10,18 +10,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/panda-syntax.css' %}">
     <script src="{% static 'codemirror/codemirror.js' %}"></script>
     <script src="{% static 'codemirror/python.js' %}"></script>
+    
 </head>
 <body>
 <div class="container">
     <div class="d-flex gy-2 m-2 flex-column flex-md-row">
-        <div class="border p-3 flex-grow-1">
+        <div class="d-flex flex-column w-100 p-3 border">
+        <div class="flex-grow-1">
             <h2>{{ title }}</h2>
             <textarea id="content">{{ content }}</textarea>
             <br>
-            <form method="post" action="{% url 'execute_command' %}">
+        </div>
+        <div class="flex-grow-1 position-relative">
+            <div class="position-absolute bottom-0 ">   
+            <form method="post" action="{% url 'execute_command' %}"">
                 <input type="submit" class="btn btn-primary" value="Sprawdź czy twoja odpowiedź jest poprawna" name="Sprawdz">
             </form>
+            </div>
         </div>
+    </div>
         <div class="d-flex flex-column w-100">
             <div class="border p-3 flex-grow-1">    
                 <h2>Wprowadź kod:</h2>
