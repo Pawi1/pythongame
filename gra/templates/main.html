@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Online</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'codemirror/codemirror.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codemirror/panda-syntax.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex gy-2 m-2 flex-column flex-lg-row">
+            <div class="d-flex flex-column w-lg-50 w-100">
+                <div class="flex-grow-1 p-3 border">
+                    <h2>{{ title }}</h2>
+                    <textarea id="content">{{ content }}</textarea>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100">
+                <div class="border p-3 flex-grow-1">    
+                    <h2>Wprowadź kod:</h2>
+                    <form method="post" action="{% url 'execute_code' %}">
+                        {% csrf_token %}
+                        <textarea id="command" name="command" class="form">{{ command }}</textarea>
+                        <br>
+                        <input type="submit" class="btn btn-success" value="Wykonaj">
+                        <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <input type="hidden" name="form_source" value="" id="formSourceField">
+                    </form>
+                </div>             
+            </div>
+        </div>
+        {% if result%}    
+        <div id="output" class="gy-2 m-2 border p-3 flex-grow-1">
+            <h2>Wynik:</h2>
+            <textarea id="result">{{ result }}</textarea>
+            <div class="flex-grow-1 position-relative">
+                <div class="position-absolute bottom-0 start-50 translate-middle-x">   
+                    <form method="post" action="{% url 'check_answer' %}">
+                        <input type="submit" class="btn btn-primary" value="Sprawdź czy twoja odpowiedź jest poprawna" name="Sprawdz">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'codemirror/codemirror.js' %}"></script>
+    <script src="{% static 'codemirror/python.js' %}"></script>
+    <script>
+        var editor3 = CodeMirror.fromTextArea(content, {
+            mode: null
+        });
+        var editor = CodeMirror.fromTextArea(command, {
+            lineNumbers: true,
+            mode:  "python",
+            theme: "panda-syntax"
+        });
+        var editor2 = CodeMirror.fromTextArea(result, {
+            readOnly: true,
+            mode: null
+        });
+    </script>
+</body>
+</html>
