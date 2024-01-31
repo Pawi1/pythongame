@@ -18,15 +18,17 @@ def execute_command(request):
         current_task = tasks[0]
     else:
         current_task = {}
-    
-    if request.method == 'POST':
-        form = CommandForm(request.POST)
-        if 'clear_button' in request.POST:
-            return render(request, 'execute_command.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
-        elif form.is_valid():
-            command = form.cleaned_data['command']
-            result = execute_user_code(command)
-            return render(request, 'execute_command.html', {'result': result, 'command': command, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
-    else:
-        form = CommandForm()
-    return render(request, 'execute_command.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
+    try:
+        if request.method == 'POST':
+            form = CommandForm(request.POST)
+            if 'clear_button' in request.POST:
+                return render(request, 'execute_command.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
+            elif form.is_valid():
+                command = form.cleaned_data['command']
+                result = execute_user_code(command)
+                return render(request, 'execute_command.html', {'result': result, 'command': command, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
+        else:
+            form = CommandForm()
+        return render(request, 'execute_command.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
+    except Exception as e:
+        return render(request, 'execute_command.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')})
