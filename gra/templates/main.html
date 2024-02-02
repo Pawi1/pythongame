@@ -11,8 +11,10 @@
     <style>
     .CodeMirror{
     border: 1px solid #eee;
-    {% if not result%} 
-    height: 37vmax;
+    {% if not result %}
+    height: 39.5vmax;
+    {% else %}
+    height: 30vh;
     {% endif %}
     }
     </style>
@@ -21,7 +23,7 @@
 <body>
     <div class="container-fluid">
         <div class="row gy-2 m-lg-2">
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 gx-0 gx-lg-4">
                 <div class="p-3 border">
                     <h2>{{ title }}</h2>
                     <textarea id="content">{{ content }}</textarea>
@@ -29,7 +31,7 @@
                     <input type="button" class="btn" value="" style="visibility: hidden;">
                 </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-8 gx-0 gx-lg-4">
                 <div class="border p-3">    
                     <h2>Wprowadź kod:</h2>
                     <form method="post" action="{% url 'execute_code' %}">
@@ -47,11 +49,12 @@
         {% if result%}    
         <div id="output" class="row gy-2 m-lg-2">
             <div class="col-12">
-            <div class="position-relative border p-3">   
-            <h2>Wynik:</h2>
-            <textarea id="result">{{ result }}</textarea>
-                    <form method="post" action="{% url 'check_answer' %}" class="position-absolute bottom-0 start-50 translate-middle-x p-3">
-                        <input type="submit" class="btn btn-primary" value="Sprawdź czy twoja odpowiedź jest poprawna" name="Sprawdz">
+                <div class="border p-3">   
+                    <h2>Wynik:</h2>
+                    <textarea id="result">{{ result }}</textarea>
+                    <br>
+                    <form method="post" action="{% url 'check_answer' %}" class="d-flex justify-content-center">
+                            <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
                     </form>
                 </div>
             </div>
