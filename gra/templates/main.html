@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Online</title>
+    <title>Python Game</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/codemirror.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/panda-syntax.css' %}">
     <style>
     .CodeMirror{
-    border: 1px solid #eee;
+    border: 1px solid #363A3F;
     /* {% if not result %} */
     height: 39.5vmax;
     /* {% else %} */
@@ -20,7 +20,11 @@
     </style>
 </head>
 
-<body>
+<body data-bs-theme="dark">
+    <nav class="navbar p-2" style="background-color: #363A3F;">
+       <div class="navbar-brand">Python Game</div>
+        <div class="navbar-text" onclick="reset_level()">Resetuj postęp</div>
+    </nav>
     <div class="container-fluid">
         <div class="row gy-2 m-lg-2">
             <div class="col-12 col-lg-4 gx-0 gx-lg-4">
@@ -67,7 +71,8 @@
     <script src="{% static 'codemirror/python.js' %}"></script>
     <script>
         var editor3 = CodeMirror.fromTextArea(content, {
-            mode: null
+            mode: null,
+            theme: "panda-syntax"
         });
         var editor = CodeMirror.fromTextArea(code, {
             lineNumbers: true,
@@ -76,8 +81,15 @@
         });
         var editor2 = CodeMirror.fromTextArea(result, {
             readOnly: true,
-            mode: null
+            mode: null,
+            theme: "panda-syntax"
         });
+        function reset_level() {
+            if(confirm("Czy napewno chcesz usunąć postęp?"))
+            {
+                window.location.replace("/reset");
+            }
+        }
     </script>
 </body>
 </html>

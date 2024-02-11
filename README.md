@@ -7,8 +7,8 @@
 - [x] Dodanie obsługi Codemirror 
 - [x] Napisanie szablonu ( ludzik, gotowy codemirror, bootstrap(?) ) (częściowo)
 - [ ] Wymyślenie zadań
-- [ ] Back-end: sprawdzanie poprawności zadań danych przez usera
-- [ ] Zapisywanie postępu w plikach cookies
+- [x] Back-end: sprawdzanie poprawności zadań danych przez usera
+- [x] Zapisywanie postępu w plikach cookies
 
 
 ### FAQ:

@@ -22,4 +22,5 @@ urlpatterns = [
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
     path('', views.execute_code, name='execute_code'),
     path("check_answer", views.check_answer, name='check_answer'),
+    path("reset", views.reset_level, name='reset_level'),
 ]
