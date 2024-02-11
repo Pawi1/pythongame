@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Online</title>
+    <title>Python Game</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/codemirror.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/panda-syntax.css' %}">
     <style>
     .CodeMirror{
-    border: 1px solid #eee;
-    {% if not result %}
+    border: 1px solid #363A3F;
+    /* {% if not result %} */
     height: 39.5vmax;
-    {% else %}
+    /* {% else %} */
     height: 30vh;
-    {% endif %}
+    /* {% endif %} */
     }
     </style>
 </head>
 
-<body>
+<body data-bs-theme="dark">
+    <nav class="navbar p-2" style="background-color: #363A3F;">
+       <div class="navbar-brand">Python Game</div>
+        <div class="navbar-text" onclick="reset_level()">Resetuj postęp</div>
+    </nav>
     <div class="container-fluid">
         <div class="row gy-2 m-lg-2">
             <div class="col-12 col-lg-4 gx-0 gx-lg-4">
@@ -36,12 +40,11 @@
                     <h2>Wprowadź kod:</h2>
                     <form method="post" action="{% url 'execute_code' %}">
                         {% csrf_token %}
-                        <textarea id="command" name="command" class="form">{{ command }}</textarea>
+                        <textarea id="code" name="code" class="form">{{ code }}</textarea>
                         <br>
                         <input type="submit" class="btn btn-success" value="Wykonaj">
                         <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <input type="hidden" name="form_source" value="" id="formSourceField">
                     </form>
                 </div>             
             </div>
@@ -54,7 +57,9 @@
                     <textarea id="result">{{ result }}</textarea>
                     <br>
                     <form method="post" action="{% url 'check_answer' %}" class="d-flex justify-content-center">
-                            <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
+                        <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
+                        <input type="hidden" name="code" value="{{ code }}">
+                        <input type="hidden" name="result" value="{{ result }}">
                     </form>
                 </div>
             </div>
@@ -66,17 +71,25 @@
     <script src="{% static 'codemirror/python.js' %}"></script>
     <script>
         var editor3 = CodeMirror.fromTextArea(content, {
-            mode: null
+            mode: null,
+            theme: "panda-syntax"
         });
-        var editor = CodeMirror.fromTextArea(command, {
+        var editor = CodeMirror.fromTextArea(code, {
             lineNumbers: true,
             mode:  "python",
             theme: "panda-syntax"
         });
         var editor2 = CodeMirror.fromTextArea(result, {
             readOnly: true,
-            mode: null
+            mode: null,
+            theme: "panda-syntax"
         });
+        function reset_level() {
+            if(confirm("Czy napewno chcesz usunąć postęp?"))
+            {
+                window.location.replace("/reset");
+            }
+        }
     </script>
 </body>
 </html>
