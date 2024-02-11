@@ -20,4 +20,4 @@ urllib3
 xmltodict
 reportbug
 whitenoise
-pycrypto
+pycryptodome

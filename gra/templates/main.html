@@ -11,11 +11,11 @@
     <style>
     .CodeMirror{
     border: 1px solid #eee;
-    {% if not result %}
+    /* {% if not result %} */
     height: 39.5vmax;
-    {% else %}
+    /* {% else %} */
     height: 30vh;
-    {% endif %}
+    /* {% endif %} */
     }
     </style>
 </head>
@@ -36,12 +36,11 @@
                     <h2>Wprowadź kod:</h2>
                     <form method="post" action="{% url 'execute_code' %}">
                         {% csrf_token %}
-                        <textarea id="command" name="command" class="form">{{ command }}</textarea>
+                        <textarea id="code" name="code" class="form">{{ code }}</textarea>
                         <br>
                         <input type="submit" class="btn btn-success" value="Wykonaj">
                         <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <input type="hidden" name="form_source" value="" id="formSourceField">
                     </form>
                 </div>             
             </div>
@@ -54,7 +53,9 @@
                     <textarea id="result">{{ result }}</textarea>
                     <br>
                     <form method="post" action="{% url 'check_answer' %}" class="d-flex justify-content-center">
-                            <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
+                        <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
+                        <input type="hidden" name="code" value="{{ code }}">
+                        <input type="hidden" name="result" value="{{ result }}">
                     </form>
                 </div>
             </div>
@@ -68,7 +69,7 @@
         var editor3 = CodeMirror.fromTextArea(content, {
             mode: null
         });
-        var editor = CodeMirror.fromTextArea(command, {
+        var editor = CodeMirror.fromTextArea(code, {
             lineNumbers: true,
             mode:  "python",
             theme: "panda-syntax"

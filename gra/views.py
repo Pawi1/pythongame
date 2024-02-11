@@ -2,12 +2,10 @@ from django.shortcuts import render
 import os
 import json
 from django.conf import settings
-from .forms import CommandForm
 from django.views.decorators.csrf import csrf_exempt
 from .utils import execute_user_code
 from gra import crypto
-from django.http import HttpResponse
-
+from django.shortcuts import redirect
 @csrf_exempt
 def execute_code(request):
     tasks = open_file(os.path.join(settings.BASE_DIR,'gra', 'data', 'zadania.json'))
@@ -18,25 +16,22 @@ def execute_code(request):
         current_task = {}
     try:
         if request.method == 'POST':
-            form = CommandForm(request.POST)
             if 'clear_button' in request.POST:
-                return cookie(render(request, 'main.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')}),level)
-            elif form.is_valid():
-                command = form.cleaned_data['command']
-                result = execute_user_code(command)
-                return cookie(render(request, 'main.html', {'result': result, 'command': command, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')}),level)
+                return render_w_cookie(request, { 'title': current_task.get('title', ''), 'content': current_task.get('content', '')},level)
+            else:
+                code = request.POST['code']
+                result = execute_user_code(code)
+                return render_w_cookie(request, {'result': result, 'code': code, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')},level)
         else:
-            form = CommandForm()
-        return cookie(render(request, 'main.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')}),level)
+            return render_w_cookie(request, { 'title': current_task.get('title', ''), 'content': current_task.get('content', '')},level)
     except Exception as e:
-        return cookie(render(request, 'main.html', {'form': form, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')}),level)
+        return render_w_cookie(request, { 'title': current_task.get('title', ''), 'content': current_task.get('content', '')},level)
 
 @csrf_exempt
 def check_answer(request):
     tasks = open_file(os.path.join(settings.BASE_DIR,'gra', 'data', 'zadania.json'))
     answers = open_file(os.path.join(settings.BASE_DIR,'gra', 'data', 'odpowiedzi.json'))
-    level = get_level(request)
-    
+    level = get_level(request) 
     if tasks:
         current_task = tasks[level]
     else:
@@ -45,7 +40,13 @@ def check_answer(request):
         current_answer = answers[level]
     else:
         current_answer = {}
-    
+    if request.method == 'POST': 
+        level += 1
+        code = request.POST['code']
+        result = request.POST['result']
+        return redirect_w_cookie(request,'/',{'result': result, 'code': code, 'title': current_task.get('title', ''), 'content': current_task.get('content', '')},level)
+    else:
+       return redirect('/')
     
 def open_file(file_path):    
     try:
@@ -55,15 +56,26 @@ def open_file(file_path):
         data = []
     return data
 
-def cookie(r,level):
-    response = HttpResponse(r)
-    response.set_cookie('level', crypto.encrypt_data(level), max_age=2629440)
-    return response
+def redirect_w_cookie(r,p,c,l):
+    rdct = redirect(p,c)
+    if r.COOKIES.get('level'):
+        rdct.delete_cookie('level')
+        rdct.delete_cookie('d_level')
+    rdct.set_cookie('level', crypto.encrypt_data(l), max_age=2629440)
+    rdct.set_cookie('d_level', l, max_age=2629440)
+    return rdct
+
+def render_w_cookie(r,c,l):
+    rndr = render(r,'main.html',c)
+    if r.COOKIES.get('level'):
+        rndr.delete_cookie('level')
+        rndr.delete_cookie('d_level')
+    rndr.set_cookie('level', crypto.encrypt_data(l), max_age=2629440)
+    rndr.set_cookie('d_level', l, max_age=2629440)
+    return rndr
 
 def get_level(request):
-    level_cookie = request.COOKIES.get('level')
-    if level_cookie:
-        level = crypto.decrypt_data(level_cookie)
-    else:
-        level = 0
-    return level
+    if not request.COOKIES.get('level'):
+        return 0
+    level = crypto.decrypt_data(request.COOKIES.get('level'))
+    return int(level)
