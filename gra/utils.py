@@ -19,6 +19,7 @@ def execute_user_code(command):
             'int': int,
             'float': float,
             'str': str,
+            'chr': chr,
             'list': list,
             'tuple': tuple,
             'dict': dict,
@@ -63,8 +64,8 @@ def get_level(request):
         return 0
     level = crypto.decrypt_data(request.COOKIES.get('level'))
     return int(level)
-def redirect_w_cookie(r,p,c,l):
-    rdct = redirect(p,c)
+def redirect_w_cookie(r,p,l):
+    rdct = redirect(p)
     if r.COOKIES.get('level'):
         rdct.delete_cookie('level')
     rdct.set_cookie('level', crypto.encrypt_data(l), max_age=2629440)
