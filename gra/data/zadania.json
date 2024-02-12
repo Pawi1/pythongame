@@ -1,17 +1,57 @@
 [
     {
+      "id": 0,
+      "title": "Samouczek",
+      "content": "Napisz program który wyświetli (bez apostrofów):\n'Hello, World!'"
+    },
+    {
       "id": 1,
       "title": "Zadanie 1",
-      "content": "Treść zadania 1:\nNapisz program który napisze: 'Hello, World!'"
+      "content": "Napisz program, który obliczy ciąg 10 sześcianów liczb naturalnych powiększonych o 3. Odpowiedź zapisz w tablicy którą na końcu działania programu wyświetlisz."
     },
     {
       "id": 2,
       "title": "Zadanie 2",
-      "content": "Treść zadania 2:"
+      "content": "Napisz program, który obliczy sumę wszystkich liczb dwucyfrowych. Na końcu liczbę zamień na znak char i wyświetl go."
     },
     {
       "id": 3,
       "title": "Zadanie 3",
-      "content": "Treść zadania 3:"
+      "content": "Masz taki ciąg liczb: 5,7,9,11,13,15\nOblicz i wyświetl 20 liczb z tego ciągu wliczając te 6 liczb które zostały podanie w zadaniu (w jednej lini, liczby oddzielone przecinkiem)."
+    },
+    {
+      "id": 4,
+      "title": "Zadanie 4",
+      "content": "…"
+    },
+    {
+      "id": 5,
+      "title": "Zadanie 5",
+      "content": "…"
+    },
+    {
+      "id": 6,
+      "title": "Zadanie 6",
+      "content": "…"
+    },
+    {
+      "id": 7,
+      "title": "Zadanie 7",
+      "content": "…"
+    },
+    {
+      "id": 8,
+      "title": "Zadanie 8",
+      "content": "…"
+    },
+    {
+      "id": 9,
+      "title": "Zadanie 9",
+      "content": "…"
+    },
+    {
+      "id": 10,
+      "title": "Zadanie 10",
+      "content": "…"
     }
   ]

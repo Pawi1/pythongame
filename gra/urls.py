@@ -18,9 +18,17 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path
 
-urlpatterns = [
+if settings.DEBUG:
+    urlpatterns = [
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
-    path('', views.execute_code, name='execute_code'),
-    path("check_answer", views.check_answer, name='check_answer'),
-    path("reset", views.reset_level, name='reset_level'),
-]
+    path('', views.main, name='main'),
+    path('reset', views.reset_level, name='reset_level'),
+    path('next_level',views.next_level,name='next_level'),            #DEBUG
+    path('previous_level',views.previous_level,name='previous_level') #DEBUG
+    ]
+else:
+    urlpatterns = [
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+    path('', views.main, name='main'),
+    path('reset', views.reset_level, name='reset_level'),
+    ]

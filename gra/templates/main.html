@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Game</title>
+    <title>Devscape</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'codemirror/codemirror.css' %}">
@@ -12,9 +12,9 @@
     .CodeMirror{
     border: 1px solid #363A3F;
     /* {% if not result %} */
-    height: 39.5vmax;
-    /* {% else %} */
-    height: 30vh;
+    height: 37vmax;
+    /*{% else %}*/
+    height: 25.89vh;
     /* {% endif %} */
     }
     </style>
@@ -22,9 +22,51 @@
 
 <body data-bs-theme="dark">
     <nav class="navbar p-2" style="background-color: #363A3F;">
-       <div class="navbar-brand">Python Game</div>
-        <div class="navbar-text" onclick="reset_level()">Resetuj postęp</div>
+       <div class="navbar-brand">Devscape</div>
+        <div class="navbar-text">
+            <a onclick="reset_level()">Resetuj postęp</a> 
+        </div>
     </nav>
+    {% if answer %}
+        {% if answer == 'True' %}
+            <div id="a" class="alert alert-success justify-content-between d-flex flex-direction: column align-items-center position-absolute top-10 start-50 translate-middle" role="alert">
+                <div class="d-flex p-1">Brawo to było poprawne rozwiązanie tego zadania, teraz możesz rozwiązać kolejne zadanie&emsp;</div>
+                <button type="button" class="btn btn-outline-success btn-sm" onclick="document.getElementById('a').remove()">
+                    &times;
+                </button>
+            </div>
+        {% else %}
+            <div id="a" class="alert alert-danger justify-content-between d-flex flex-direction: column align-items-center position-absolute top-10 start-50 translate-middle" role="alert">
+                <div class="d-flex p-1">Wysłana odpowiedź jest niepoprawna, spróbuj ponownie ...&emsp;</div>
+                <button type="button" class="btn btn-outline-danger btn-sm d-flex" onclick="document.getElementById('a').remove()">
+                    &times;
+                </button>
+            </div>
+        {% endif %}
+    <script>
+        setTimeout(function() {
+        document.getElementById('a').remove();
+        }, 3000);
+    </script>
+    {% endif %}
+    {% if continue %}
+    <div class="alert alert-info justify-content-between d-flex flex-direction: column align-items-center position-absolute top-50 start-50 translate-middle" role="alert">
+        <div class="d-flex p-1">Hej widzimy że wcześniej już grałeś w "Devscape", czy chcesz przywrócić swój postęp?&emsp;</div>
+        <form action="{% url 'main' %}" method="GET">
+            <button type="submit" class="btn btn-outline-info btn-sm d-flex">
+                TAK
+            </button>
+            <input type="hidden" name="continue" value="True">
+        </form> 
+        &emsp;
+        <form action="{% url 'main' %}" method="GET">
+            <button type="submit" class="btn btn-outline-info btn-sm d-flex">
+                NIE
+            </button>
+            <input type="hidden" name="continue" value="False">
+        </form>        
+    </div>
+    {% else %}
     <div class="container-fluid">
         <div class="row gy-2 m-lg-2">
             <div class="col-12 col-lg-4 gx-0 gx-lg-4">
@@ -38,13 +80,14 @@
             <div class="col-12 col-lg-8 gx-0 gx-lg-4">
                 <div class="border p-3">    
                     <h2>Wprowadź kod:</h2>
-                    <form method="post" action="{% url 'execute_code' %}">
+                    <form method="post" action="{% url 'main' %}">
                         {% csrf_token %}
                         <textarea id="code" name="code" class="form">{{ code }}</textarea>
                         <br>
                         <input type="submit" class="btn btn-success" value="Wykonaj">
                         <input type="submit" class="btn btn-secondary" value="Wyczyść" name="clear_button">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <input type="hidden" name="execute" value="{{ True }}">
                     </form>
                 </div>             
             </div>
@@ -56,23 +99,27 @@
                     <h2>Wynik:</h2>
                     <textarea id="result">{{ result }}</textarea>
                     <br>
-                    <form method="post" action="{% url 'check_answer' %}" class="d-flex justify-content-center">
+                    <form method="post" action="{% url 'main' %}" class="d-flex justify-content-center">
                         <input type="submit" class="btn btn-primary" value="Wyślij twoją odpowiedź do zadania" name="Sprawdz">
                         <input type="hidden" name="code" value="{{ code }}">
                         <input type="hidden" name="result" value="{{ result }}">
+                        <input type="hidden" name="cookie" value="{{ request.COOKIES.level }}">
                     </form>
                 </div>
             </div>
         </div>
         {% endif %}
     </div>
+    {% endif %}
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
     <script src="{% static 'codemirror/codemirror.js' %}"></script>
     <script src="{% static 'codemirror/python.js' %}"></script>
     <script>
         var editor3 = CodeMirror.fromTextArea(content, {
             mode: null,
-            theme: "panda-syntax"
+            theme: "panda-syntax",
+            lineWrapping: true,
+            readOnly: true
         });
         var editor = CodeMirror.fromTextArea(code, {
             lineNumbers: true,
