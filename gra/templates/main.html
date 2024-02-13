@@ -51,17 +51,28 @@
     {% endif %}
     {% if continue %}
     <div class="alert alert-info justify-content-between d-flex flex-direction: column align-items-center position-absolute top-50 start-50 translate-middle" role="alert">
+<<<<<<< HEAD
         <div class="d-flex p-1">Hej widzimy że wcześniej już grałeś w "Devscape", czy chcesz przywrócić swój postęp?&emsp;</div>
         <form action="{% url 'main' %}" method="GET">
             <button type="submit" class="btn btn-outline-info btn-sm d-flex">
                 TAK
+=======
+        <div class="d-flex p-1"><p>Hej widzimy że wcześniej już grałeś w <i>Devscape</i>, czy chcesz przywrócić swój postęp?&emsp;</p></div>
+        <form action="{% url 'main' %}" method="GET">
+            <button type="submit" class="btn btn-outline-info btn-sm d-flex">
+                Kontynuuj starą grę
+>>>>>>> main
             </button>
             <input type="hidden" name="continue" value="True">
         </form> 
         &emsp;
         <form action="{% url 'main' %}" method="GET">
             <button type="submit" class="btn btn-outline-info btn-sm d-flex">
+<<<<<<< HEAD
                 NIE
+=======
+                <strong>USUŃ WSZYSTKO</strong>
+>>>>>>> main
             </button>
             <input type="hidden" name="continue" value="False">
         </form>        
