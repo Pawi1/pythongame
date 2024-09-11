@@ -31,6 +31,8 @@ jobs:
         run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Set environment variables
+        run: echo "MY_SECRET_KEY=${{ secrets.MY_SECRET_KEY }}" >> $GITHUB_ENV
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -66,4 +68,4 @@ jobs:
         with:
           app-name: 'devscape'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A128F002FCF840E5991DECF5B2CC4DEA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
