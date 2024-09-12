@@ -26,7 +26,7 @@ SECRET_KEY = getenv('MY_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pythongame.azurewebsites.net', '127.0.0.1', 'devscape.azurewebsites.net']
+ALLOWED_HOSTS = ['pythongame.azurewebsites.net', '127.0.0.1', 'devscape.azurewebsites.net', '169.254.129.4']
 
 
 # Application definition
