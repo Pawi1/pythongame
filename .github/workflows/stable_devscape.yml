@@ -68,4 +68,4 @@ jobs:
         with:
           app-name: 'devscape'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A128F002FCF840E5991DECF5B2CC4DEA }}
