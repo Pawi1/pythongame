@@ -50,7 +50,6 @@ ___
 >
 > IMG >> ./gra/static/img/obrazek.png
 >
-> #### Aby zadeklarować pliki css,img,js itp. najpierw trzeba poprawnie skonfigurować html
 >
 > ``{% load static %}`` w ``<head>``
 
