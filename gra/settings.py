@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ""
 with open("../my_secret_key.txt", "r") as file:
     SECRET_KEY = file.readline().rstrip()
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
