@@ -52,5 +52,3 @@ ___
 >
 >
 > ``{% load static %}`` w ``<head>``
-
-## Jak masz jakieś pytania jak coś napisać w Django, pisz do mnie albo skorzystaj z internetu/chatgpt
